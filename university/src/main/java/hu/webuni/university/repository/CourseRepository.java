@@ -1,5 +1,6 @@
 package hu.webuni.university.repository;
 
+
 import java.util.Iterator;
 import java.util.Optional;
 
@@ -14,7 +15,14 @@ import hu.webuni.university.model.QCourse;
 public interface CourseRepository extends 
 	JpaRepository<Course, Integer>, 
 	QuerydslPredicateExecutor<Course>,
-	QuerydslBinderCustomizer<QCourse>{
+	QuerydslBinderCustomizer<QCourse>,
+	QuerydslWithEntityGraphRepository<Course, Integer>{
+
+//	@EntityGraph(attributePaths = {"teachers"})
+//	Iterable<Course> findAllWithTeachers(Predicate predicate);
+//
+//	@EntityGraph(attributePaths = {"students"})
+//	Iterable<Course> findAllWithStudents(Predicate predicate);
 
 	@Override
 	default void customize(QuerydslBindings bindings, QCourse course) {
