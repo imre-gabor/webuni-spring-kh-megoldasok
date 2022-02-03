@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
+import org.springframework.data.web.SortDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,11 +42,14 @@ public class CourseController {
 	
 	
 	@GetMapping("/search")
-	public List<CourseDto> searchCourses2(@QuerydslPredicate(root = Course.class) Predicate predicate, @RequestParam Optional<Boolean> full) {
+	public List<CourseDto> searchCourses2(
+			@QuerydslPredicate(root = Course.class) Predicate predicate, 
+			@RequestParam Optional<Boolean> full,
+			@SortDefault("id") Pageable pageable) {
 		boolean isFull = full.orElse(false);
 		if(!isFull)
-			return courseMapper.courseSummariesToDtos(courseRepository.findAll(predicate));
+			return courseMapper.courseSummariesToDtos(courseRepository.findAll(predicate, pageable));
 		else
-			return courseMapper.coursesToDtos(courseService.searchCourses(predicate));
+			return courseMapper.coursesToDtos(courseService.searchCourses(predicate, pageable));
 	}
 }
