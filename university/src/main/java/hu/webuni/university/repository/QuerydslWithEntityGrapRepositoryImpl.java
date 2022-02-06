@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.support.CrudMethodMetadata;
 import org.springframework.data.jpa.repository.support.Querydsl;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.querydsl.SimpleEntityPathResolver;
@@ -30,7 +29,6 @@ public class QuerydslWithEntityGrapRepositoryImpl extends SimpleJpaRepository<Co
 	public QuerydslWithEntityGrapRepositoryImpl(EntityManager em) {
 		super(Course.class, em);
 		this.em = em;
-		CrudMethodMetadata metadata = getRepositoryMethodMetadata();
 		this.path = SimpleEntityPathResolver.INSTANCE.createPath(Course.class);
 		this.builder = new PathBuilder<>(path.getType(), path.getMetadata());
 		this.querydsl = new Querydsl(em, builder);
