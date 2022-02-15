@@ -40,16 +40,19 @@ public class CourseController {
 		return courseMapper.courseToDto(course);
 	}
 	
-	
 	@GetMapping("/search")
-	public List<CourseDto> searchCourses2(
+	public List<CourseDto> search(
 			@QuerydslPredicate(root = Course.class) Predicate predicate, 
 			@RequestParam Optional<Boolean> full,
-			@SortDefault("id") Pageable pageable) {
+			@SortDefault("id") Pageable pageable){
 		boolean isFull = full.orElse(false);
-		if(!isFull)
-			return courseMapper.courseSummariesToDtos(courseRepository.findAll(predicate, pageable));
-		else
-			return courseMapper.coursesToDtos(courseService.searchCourses(predicate, pageable));
+		if(isFull) {
+			Iterable<Course> courses = courseService.searchWithRelationships(predicate, pageable);
+			return courseMapper.coursesToDtos(courses);
+		} else {
+			Iterable<Course> courses = courseRepository.findAll(predicate, pageable);
+			return courseMapper.courseSummariesToDtos(courses);
+		}
 	}
+	
 }
