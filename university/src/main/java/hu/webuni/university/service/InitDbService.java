@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,7 @@ public class InitDbService {
 	private final CourseRepository courseRepository;
 	private final StudentRepository studentRepository;
 	private final TeacherRepository teacherRepository;
+	private final JdbcTemplate jdbcTemplate;
 	
 	@Transactional
 	public void deleteDb() {
@@ -30,6 +32,16 @@ public class InitDbService {
 		courseRepository.deleteAll();
 		studentRepository.deleteAll();
 		teacherRepository.deleteAll();
+	}
+	
+	@Transactional
+	public void deleteAudTables() {
+		jdbcTemplate.update("DELETE FROM teacher_aud");
+		jdbcTemplate.update("DELETE FROM course_aud");
+		jdbcTemplate.update("DELETE FROM student_aud");
+		jdbcTemplate.update("DELETE FROM course_students_aud");
+		jdbcTemplate.update("DELETE FROM course_teachers_aud");
+		jdbcTemplate.update("DELETE FROM revinfo");
 	}
 
 	@Transactional
@@ -56,6 +68,13 @@ public class InitDbService {
 			.build());
 	}
 
+	@Transactional
+	public void modifyCourse() {
+		Course course1 = courseRepository.findByName("course1").get(0);
+		course1.setName("course1_mod");
+		System.out.println(course1.getId());
+	}
+	
 	private Student saveNewStudent(String name, LocalDate birthdate, int semester, int eduId) {
 		return studentRepository.save(
 				Student.builder()

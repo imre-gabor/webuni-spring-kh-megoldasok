@@ -9,6 +9,7 @@ import org.mapstruct.Named;
 
 import hu.webuni.university.dto.CourseDto;
 import hu.webuni.university.model.Course;
+import hu.webuni.university.model.HistoryData;
 
 @Mapper(componentModel = "spring")
 public interface CourseMapper {
@@ -26,5 +27,7 @@ public interface CourseMapper {
 
 	@IterableMapping(qualifiedByName = "summary")
 	List<CourseDto> courseSummariesToDtos(Iterable<Course> findAll);
+
+	List<HistoryData<CourseDto>> coursesToHistoryData(List<HistoryData<Course>> historyById);
 
 }

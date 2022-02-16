@@ -1,5 +1,6 @@
 package hu.webuni.university.web;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.data.web.SortDefault;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,7 @@ import com.querydsl.core.types.Predicate;
 import hu.webuni.university.dto.CourseDto;
 import hu.webuni.university.mapper.CourseMapper;
 import hu.webuni.university.model.Course;
+import hu.webuni.university.model.HistoryData;
 import hu.webuni.university.repository.CourseRepository;
 import hu.webuni.university.service.CourseService;
 import lombok.RequiredArgsConstructor;
@@ -55,4 +58,13 @@ public class CourseController {
 		}
 	}
 	
+	@GetMapping("/history/{id}")
+	public List<HistoryData<CourseDto>> getHistory(@PathVariable int id){
+		return courseMapper.coursesToHistoryData(courseService.getHistoryById(id));
+	}
+	
+	@GetMapping(value = "/history/{id}", params = "when")
+	public CourseDto getVersionAt(@PathVariable int id, @RequestParam OffsetDateTime when){
+		return courseMapper.courseToDto(courseService.getVersionAt(id, when));
+	}
 }
