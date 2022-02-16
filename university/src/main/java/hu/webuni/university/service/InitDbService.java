@@ -34,9 +34,9 @@ public class InitDbService {
 
 	@Transactional
 	public void addInitData() {
-		Student student1 = saveNewStudent("student1", LocalDate.of(2000, 10, 10), 1);
-		Student student2 = saveNewStudent("student2", LocalDate.of(2000, 10, 10), 2);
-		Student student3 = saveNewStudent("student3", LocalDate.of(2000, 10, 10), 3);
+		Student student1 = saveNewStudent("student1", LocalDate.of(2000, 10, 10), 1, 111);
+		Student student2 = saveNewStudent("student2", LocalDate.of(2000, 10, 10), 2, 222);
+		Student student3 = saveNewStudent("student3", LocalDate.of(2000, 10, 10), 3, 333);
 
 		Teacher teacher1 = saveNewTeacher("teacher1", LocalDate.of(2000, 10, 10));
 		Teacher teacher2 = saveNewTeacher("teacher2", LocalDate.of(2000, 10, 10));
@@ -56,12 +56,13 @@ public class InitDbService {
 			.build());
 	}
 
-	private Student saveNewStudent(String name, LocalDate birthdate, int semester) {
+	private Student saveNewStudent(String name, LocalDate birthdate, int semester, int eduId) {
 		return studentRepository.save(
 				Student.builder()
 					.name(name)
 					.birthdate(birthdate)
 					.semester(semester)
+					.eduId(eduId)
 					.build());
 	}
 	

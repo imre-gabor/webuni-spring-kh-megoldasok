@@ -38,4 +38,7 @@ public class Student {
 	
 	@ManyToMany(mappedBy = "students")
 	private Set<Course> courses;
+	
+	private Integer eduId;
+	private Integer numFreeSemesters;
 }

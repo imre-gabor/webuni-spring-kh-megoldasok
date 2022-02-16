@@ -3,11 +3,13 @@ package hu.webuni.university;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import hu.webuni.university.service.InitDbService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@EnableScheduling
 @SpringBootApplication
 public class UniversityApplication implements CommandLineRunner {
 	
