@@ -49,7 +49,7 @@
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-envers</artifactId>
@@ -68,6 +68,22 @@
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.5.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>0.2.2</version>
 		</dependency>
 
 
@@ -148,6 +164,30 @@
 						<configuration>
 							<outputDirectory>target/generated-sources/java</outputDirectory>
 							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>5.3.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/openapi/university-openapi.yml</inputSpec>
+							<generatorName>spring</generatorName>
+							<configOptions>
+								<useTags>true</useTags>
+								<dateLibrary>java8-datetime</dateLibrary>
+								<configPackage>hu.webuni.airport.api.config</configPackage>
+								<interfaceOnly>true</interfaceOnly>
+							</configOptions>
+							<apiPackage>hu.webuni.airport.api</apiPackage>
+							<modelPackage>hu.webuni.airport.api.model</modelPackage>
 						</configuration>
 					</execution>
 				</executions>
