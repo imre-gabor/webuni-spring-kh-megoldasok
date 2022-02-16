@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class CourseService {
 	private final CourseRepository courseRepository;
 	
 	@Transactional
+	@Cacheable("courseSearchResults")
 	public List<Course> searchWithRelationships(Predicate predicate, Pageable pageable){
 		
 //		List<Course> courses = courseRepository.findAll(predicate, "Course.students");
