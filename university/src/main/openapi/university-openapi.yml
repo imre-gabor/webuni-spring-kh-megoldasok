@@ -104,6 +104,43 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/HistoryDataCourseDto'
+  '/api/students/{id}/profile':
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - student-controller
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+      operationId: getProfilePicture
+    post:
+      summary: ''
+      operationId: uploadProfilePicture
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  format: binary
+      tags:
+        - student-controller
 components:
   schemas:
     CourseDto:
