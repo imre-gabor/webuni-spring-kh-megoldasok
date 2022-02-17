@@ -17,8 +17,8 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import hu.webuni.university.model.Course;
 
-public class QuerydslWithEntityGrapRepositoryImpl extends SimpleJpaRepository<Course, Integer> 
-	implements QuerydslWithEntityGrapRepository<Course> {
+public class QuerydslWithEntityGraphRepositoryImpl extends SimpleJpaRepository<Course, Integer> 
+	implements QuerydslWithEntityGraphRepository<Course> {
 
 	private final EntityManager em;
 	private final EntityPath<Course> path;
@@ -26,7 +26,7 @@ public class QuerydslWithEntityGrapRepositoryImpl extends SimpleJpaRepository<Co
 	private final Querydsl querydsl;
 	
 	
-	public QuerydslWithEntityGrapRepositoryImpl(EntityManager em) {
+	public QuerydslWithEntityGraphRepositoryImpl(EntityManager em) {
 		super(Course.class, em);
 		this.em = em;
 		this.path = SimpleEntityPathResolver.INSTANCE.createPath(Course.class);
