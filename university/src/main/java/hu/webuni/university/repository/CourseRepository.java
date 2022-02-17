@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 
 import hu.webuni.university.model.Course;
+import hu.webuni.university.model.CourseStat;
 import hu.webuni.university.model.QCourse;
 
 public interface CourseRepository extends 
@@ -40,5 +42,9 @@ public interface CourseRepository extends
 //	@EntityGraph(attributePaths = {"students", "teachers"})
 //	Iterable<Course> findAll(Predicate predicate);
 	
+	@Query("SELECT c.id AS courseId, c.name AS courseName, AVG(s.semester) AS averageSemesterOfStudents "
+			+ "FROM Course c LEFT JOIN c.students s "
+			+ "GROUP BY c")
+	List<CourseStat> getCourseStats();
 	
 }

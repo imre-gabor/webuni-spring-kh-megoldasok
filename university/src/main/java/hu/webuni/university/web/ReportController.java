@@ -1,6 +1,5 @@
 package hu.webuni.university.web;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -30,7 +29,7 @@ public class ReportController {
 		}
 		
 		return CompletableFuture.completedFuture(
-				Collections.emptyList() //TODO: repository metódus hívása
+				courseRepository.getCourseStats()
 				);
 	}
 }

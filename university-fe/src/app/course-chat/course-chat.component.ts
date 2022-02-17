@@ -27,7 +27,6 @@ export class CourseChatComponent implements OnInit {
   connect() {
     const ws = new SockJS('/api/stomp');
     this.stompClient = Stomp.over(ws);
-    let that = this;
     this.stompClient.connect({}, frame => {   
       console.log('Connected: ' + frame);
       this.subscribeToCourseChat();
