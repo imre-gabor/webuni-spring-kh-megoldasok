@@ -44,4 +44,6 @@ public class Student {
 	
 	private Integer eduId;
 	private Integer numFreeSemesters;
+	
+	private int balance;
 }
