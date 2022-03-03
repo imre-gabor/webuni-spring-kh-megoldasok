@@ -78,15 +78,16 @@ public class CourseService {
 	@Transactional
 	@SuppressWarnings({ "rawtypes"})
 	public Course getVersionAt(int id, OffsetDateTime when) {
-		long epochMillis = when.toInstant().toEpochMilli();
+		long epochMilli = when.toInstant().toEpochMilli();
+		
 		List resultList = AuditReaderFactory.get(em)
-				.createQuery()
-				.forRevisionsOfEntity(Course.class, true, false)
-				.add(AuditEntity.property("id").eq(id))
-				.add(AuditEntity.revisionProperty("timestamp").le(epochMillis))
-				.addOrder(AuditEntity.revisionProperty("timestamp").desc())
-				.setMaxResults(1)
-				.getResultList();
+		.createQuery()
+		.forRevisionsOfEntity(Course.class, true, false)
+		.add(AuditEntity.property("id").eq(id))
+		.add(AuditEntity.revisionProperty("timestamp").le(epochMilli))
+		.addOrder(AuditEntity.revisionProperty("timestamp").desc())
+		.setMaxResults(1)
+		.getResultList();
 		
 		if(!resultList.isEmpty()) {
 			Course course = (Course) resultList.get(0);
@@ -96,4 +97,5 @@ public class CourseService {
 		}
 		return null;
 	}
+	
 }

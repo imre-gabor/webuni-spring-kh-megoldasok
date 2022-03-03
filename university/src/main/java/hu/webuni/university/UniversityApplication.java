@@ -11,10 +11,10 @@ import hu.webuni.university.service.InitDbService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@EnableScheduling
-@EnableCaching
 @EnableAsync
 @SpringBootApplication
+@EnableScheduling
+@EnableCaching
 public class UniversityApplication implements CommandLineRunner {
 	
 	private final InitDbService initDbService;

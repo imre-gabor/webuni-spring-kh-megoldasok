@@ -16,11 +16,12 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class StudentController implements StudentControllerApi {
-	
+
 	private final StudentService studentService;
-	
+
 	@Override
 	public ResponseEntity<Resource> getProfilePicture(Integer id) {
+
 		return ResponseEntity.ok(studentService.getProfilePicture(id));
 	}
 
@@ -34,7 +35,6 @@ public class StudentController implements StudentControllerApi {
 		}
 		return ResponseEntity.ok().build();
 	}
-
 	
 	
 }

@@ -28,6 +28,8 @@ public class ReportController {
 		} catch (InterruptedException e) {
 		}
 		
-		return CompletableFuture.completedFuture(courseRepository.getCourseStats());
+		return CompletableFuture.completedFuture(
+				courseRepository.getCourseStats()
+				);
 	}
 }

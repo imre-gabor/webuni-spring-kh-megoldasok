@@ -58,7 +58,11 @@ public class CourseController implements CourseControllerApi {
 
 	@Override
 	public ResponseEntity<CourseDto> getVersionAt(Integer id, @NotNull @Valid OffsetDateTime at) {
-		return ResponseEntity.ok(courseMapper.courseToDto(courseService.getVersionAt(id, at)));
+		return ResponseEntity.ok(
+				courseMapper.courseToDto(
+					courseService.getVersionAt(id, at)
+				)
+			);
 	}
 
 	public void configPageable(@SortDefault("id") Pageable pageable) {}

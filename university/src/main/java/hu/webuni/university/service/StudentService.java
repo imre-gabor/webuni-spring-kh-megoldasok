@@ -32,18 +32,17 @@ public class StudentService {
 	
 	@Value("${university.content.profilePics}")
 	private String profilePicsFolder;
-
+	
 	@PostConstruct
 	public void init() {
 		try {
-			Files.createDirectories(Path.of(profilePicsFolder));
+			Files.createDirectory(Path.of(profilePicsFolder));
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new RuntimeException(e);
 		}
 	}
 	
-//	@Scheduled(cron="${university.freeSemesterUpdater.cron}")
+//	@Scheduled(cron = "${university.freeSemesterUpdater.cron}")
 	public void updateFreeSemesters() {
 		List<Student> students = studentRepository.findAll();
 		
@@ -63,25 +62,28 @@ public class StudentService {
 		});
 	}
 
-	public void saveProfilePicture(Integer id, InputStream is) {
-		if(!studentRepository.existsById(id))
+	public Resource getProfilePicture(Integer id) {
+		
+		FileSystemResource fileSystemResource = new FileSystemResource(getProfilePicturePath(id));
+		
+		if(!fileSystemResource.exists()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+		return fileSystemResource;
+	}
+
+	private Path getProfilePicturePath(Integer id) {
+		return Paths.get(profilePicsFolder, id.toString() + ".jpg");
+	}
+
+	public void saveProfilePicture(Integer id, InputStream is) {
 		try {
-			Files.copy(is, getProfilePicPathForStudent(id), StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(is, getProfilePicturePath(id), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 	}
 
-	private Path getProfilePicPathForStudent(Integer id) {
-		return Paths.get(profilePicsFolder, id.toString() + ".jpg");
-	}
-
-	public Resource getProfilePicture(Integer studentId) {
-		FileSystemResource fileSystemResource = new FileSystemResource(getProfilePicPathForStudent(studentId));
-		if(!fileSystemResource.exists())
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-		return fileSystemResource;
-	}
+	
 }

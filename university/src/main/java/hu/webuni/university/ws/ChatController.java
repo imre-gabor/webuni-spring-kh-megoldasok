@@ -11,11 +11,11 @@ import lombok.RequiredArgsConstructor;
 public class ChatController {
 	
 	private final SimpMessagingTemplate messagingTemplate;
-
+	
 	@MessageMapping("/chat")
-	public void send(ChatMessage message) throws Exception {
-		messagingTemplate.convertAndSend("/topic/courseChat/" + message.getCourseId(), 
-				String.format("%s: %s", message.getSender(), message.getText()));
+	public void onChatMessage(ChatMessage chatMessage) throws Exception{
+		messagingTemplate.convertAndSend("/topic/courseChat/" + chatMessage.getCourseId(),
+				String.format("%s: %s", chatMessage.getSender(), chatMessage.getText()));
 	}
 
 }

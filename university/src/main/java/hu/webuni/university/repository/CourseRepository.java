@@ -19,7 +19,7 @@ public interface CourseRepository extends
 	JpaRepository<Course, Integer>, 
 	QuerydslPredicateExecutor<Course>,
 	QuerydslBinderCustomizer<QCourse>, 
-	QuerydslWithEntityGrapRepository<Course>{
+	QuerydslWithEntityGraphRepository<Course>{
 
 	@Override
 	default void customize(QuerydslBindings bindings, QCourse course) {
@@ -42,10 +42,9 @@ public interface CourseRepository extends
 //	@EntityGraph(attributePaths = {"students", "teachers"})
 //	Iterable<Course> findAll(Predicate predicate);
 	
-	@Query("SELECT c.id as courseId, c.name as courseName, AVG(s.semester) as averageSemesterOfStudents "
+	@Query("SELECT c.id AS courseId, c.name AS courseName, AVG(s.semester) AS averageSemesterOfStudents "
 			+ "FROM Course c LEFT JOIN c.students s "
 			+ "GROUP BY c")
 	List<CourseStat> getCourseStats();
-	
 	
 }
