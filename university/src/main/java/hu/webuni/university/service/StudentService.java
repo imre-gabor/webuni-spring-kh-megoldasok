@@ -36,7 +36,7 @@ public class StudentService {
 	@PostConstruct
 	public void init() {
 		try {
-			Files.createDirectory(Path.of(profilePicsFolder));
+			Files.createDirectories(Path.of(profilePicsFolder));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
