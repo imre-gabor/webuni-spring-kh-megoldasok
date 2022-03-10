@@ -23,4 +23,10 @@ export class LoginService {
       "password": password
     });
   } 
+
+  loginWithFbToken(token: string): Observable<string> {
+    return this.http.post<string>(this.loginUrl, {
+      "fbToken": token
+    });
+  } 
 }
