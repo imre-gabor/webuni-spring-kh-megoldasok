@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-course-chat',
@@ -17,7 +18,9 @@ export class CourseChatComponent implements OnInit {
   chatMessages: string[] = [];
 
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.courseId = Number(this.route.snapshot.paramMap.get('courseId'));
@@ -27,7 +30,7 @@ export class CourseChatComponent implements OnInit {
   connect() {
     const ws = new SockJS('/api/stomp');
     this.stompClient = Stomp.over(ws);
-    this.stompClient.connect({}, frame => {   
+    this.stompClient.connect({'X-Authorization' : 'Bearer ' + this.authService.getToken()}, frame => {   
       console.log('Connected: ' + frame);
       this.subscribeToCourseChat();
     });
