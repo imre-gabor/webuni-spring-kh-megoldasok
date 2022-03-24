@@ -2,10 +2,13 @@ package hu.webuni.university.service;
 
 import java.util.Random;
 
+import javax.jms.Topic;
+
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import hu.webuni.eduservice.wsclient.StudentXmlWsImplService;
+import hu.webuni.jms.dto.FreeSemesterRequest;
 import hu.webuni.university.aspect.Retry;
 import lombok.RequiredArgsConstructor;
 
@@ -34,6 +37,17 @@ public class CentralEducationService {
 	}
 	
 	public void askNumFreeSemestersForStudent(int eduId) {
+		
+		FreeSemesterRequest request = new FreeSemesterRequest();
+		request.setStudentId(eduId);
+		
+		Topic topic = educationJmsTemplate.execute(session ->{
+			return session.createTopic(DEST_FREE_SEMESTER_RESPONSES);
+		});
 	
+		educationJmsTemplate.convertAndSend(DEST_FREE_SEMESTER_REQUESTS, request, message ->{
+			message.setJMSReplyTo(topic);
+			return message;
+		});
 	}
 }

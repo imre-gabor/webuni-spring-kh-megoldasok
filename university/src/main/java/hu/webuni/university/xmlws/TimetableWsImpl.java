@@ -21,7 +21,8 @@ public class TimetableWsImpl implements TimetableWs {
 	private final TimeTableMapper timeTableMapper;
 
 	@Override
-	public List<TimeTableItemDto> getTimetableForStudent(Integer studentId, LocalDate from, LocalDate until) {
+	public List<TimeTableItemDto> getTimetableForStudent(Integer studentId, 
+			LocalDate from, LocalDate until) {
 		try {
 			if (studentId != null) {
 				ArrayList<TimeTableItemDto> result = new ArrayList<>();
