@@ -20,9 +20,9 @@ import org.springframework.web.context.request.NativeWebRequest;
 
 import com.querydsl.core.types.Predicate;
 
-import hu.webuni.airport.api.CourseControllerApi;
-import hu.webuni.airport.api.model.CourseDto;
-import hu.webuni.airport.api.model.HistoryDataCourseDto;
+import hu.webuni.university.api.CourseControllerApi;
+import hu.webuni.university.api.model.CourseDto;
+import hu.webuni.university.api.model.HistoryDataCourseDto;
 import hu.webuni.university.mapper.CourseMapper;
 import hu.webuni.university.model.Course;
 import hu.webuni.university.repository.CourseRepository;

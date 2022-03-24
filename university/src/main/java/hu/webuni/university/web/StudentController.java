@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import hu.webuni.airport.api.StudentControllerApi;
+import hu.webuni.university.api.StudentControllerApi;
 import hu.webuni.university.service.StudentService;
 import lombok.RequiredArgsConstructor;
 

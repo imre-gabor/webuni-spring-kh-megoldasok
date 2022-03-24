@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FacebookLoginProvider, SocialAuthService } from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { AuthService } from '../auth.service';
 import { LoginService } from '../login.service';
 
@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
 
   username: string;
   password: string;
+  socialLoginType: string;
 
   constructor(
     private loginService: LoginService, 
@@ -20,8 +21,17 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.socialAuthService.authState.subscribe((user) => {
-      this.loginService.loginWithFbToken(user.authToken)
-        .subscribe(token => this.authService.saveToken(token));
+
+      if(this.socialLoginType == "facebook") {
+
+        this.loginService.loginWithFbToken(user.authToken)
+          .subscribe(token => this.authService.saveToken(token));
+
+      } else  if(this.socialLoginType == "google") {
+
+        this.loginService.loginWithGoogleToken(user.idToken)
+          .subscribe(token => this.authService.saveToken(token));
+      }
     });
   }
 
@@ -39,6 +49,12 @@ export class LoginComponent implements OnInit {
   }
 
   facebookSignin(): void {
+    this.socialLoginType = "facebook";
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  googleSignin(): void {
+    this.socialLoginType = "google";
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 }

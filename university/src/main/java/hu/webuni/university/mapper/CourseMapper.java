@@ -10,8 +10,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
-import hu.webuni.airport.api.model.CourseDto;
-import hu.webuni.airport.api.model.HistoryDataCourseDto;
+import hu.webuni.university.api.model.CourseDto;
+import hu.webuni.university.api.model.HistoryDataCourseDto;
 import hu.webuni.university.model.Course;
 import hu.webuni.university.model.HistoryData;
 

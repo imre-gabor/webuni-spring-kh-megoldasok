@@ -13,8 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import hu.webuni.airport.api.TimeTableControllerApi;
-import hu.webuni.airport.api.model.TimeTableItemDto;
+import hu.webuni.university.api.TimeTableControllerApi;
+import hu.webuni.university.api.model.TimeTableItemDto;
 import hu.webuni.university.mapper.TimeTableMapper;
 import hu.webuni.university.model.TimeTableItem;
 import hu.webuni.university.service.TimeTableService;

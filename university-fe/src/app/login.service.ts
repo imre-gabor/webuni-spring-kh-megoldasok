@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
+  
 
   private loginUrl = 'api/login';
 
@@ -29,4 +30,10 @@ export class LoginService {
       "fbToken": token
     });
   } 
+
+  loginWithGoogleToken(token: string): Observable<string> {
+    return this.http.post<string>(this.loginUrl, {
+      "googleToken": token
+    });
+  }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import hu.webuni.airport.api.model.TimeTableItemDto;
+import hu.webuni.university.api.model.TimeTableItemDto;
 import hu.webuni.university.model.TimeTableItem;
 
 @Mapper(componentModel = "spring")

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hu.webuni.university.dto.LoginDto;
 import hu.webuni.university.service.FacebookLoginService;
+import hu.webuni.university.service.GoogleLoginService;
 
 @RestController
 public class JwtLoginController {
@@ -24,16 +25,25 @@ public class JwtLoginController {
 	
 	@Autowired
 	FacebookLoginService facebookLoginService;
+
+	@Autowired
+	GoogleLoginService googleLoginService;
 	
 	@PostMapping("/api/login")
 	public String login(@RequestBody LoginDto loginDto) {
 		UserDetails userDetails = null;
 		String fbToken = loginDto.getFbToken();
+		String googleToken = loginDto.getGoogleToken();
+
 		if(ObjectUtils.isEmpty(fbToken)) {
 		
-			Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
-			userDetails = (UserDetails)authentication.getPrincipal();
+			if(ObjectUtils.isEmpty(googleToken)) {
+				Authentication authentication = authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
+				userDetails = (UserDetails)authentication.getPrincipal();
+			} else {
+				userDetails = googleLoginService.getUserDetailsForToken(googleToken);
+			}
 		} else {
 			
 			userDetails = facebookLoginService.getUserDetailsForToken(fbToken);
