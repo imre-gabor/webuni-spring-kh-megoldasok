@@ -4,7 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@SpringBootApplication
+import hu.webuni.tokenlib.JwtAuthFilter;
+
+@SpringBootApplication(scanBasePackageClasses = {
+		GatewayApplication.class,
+		JwtAuthFilter.class
+})
 @EnableDiscoveryClient
 public class GatewayApplication {
 
